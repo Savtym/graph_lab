@@ -1,0 +1,12 @@
+/* Reset Styles */
+
+@import url(reset.css);
+
+/* Custom Styles */
+
+#bezier {
+	margin: 0 auto;
+    border-width: 1px;
+    border-style: solid;
+    background: #FAFAFA;
+}

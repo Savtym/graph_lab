@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+    <title>lab2</title>
+</head>
+
+<body>
+    <canvas id="bezier" width="1000" height="500">Ваш браузер не поддерживает canvas.</canvas>
+    <form>
+        <label>Смещение:</label>
+        <input type="button" onclick="move(-20, 0)" value="left">
+        <input type="button" onclick="move(20, 0)" value="right">
+        <input type="button" onclick="move(0, -20)" value="up">
+        <input type="button" onclick="move(0, 20)" value="down">
+        <br>
+        <label>Поворот:</label>
+        <input type="button" onclick="turn(0.9)" value="turn left">
+        <input type="button" onclick="turn(-0.9)" value="turn right">
+        <br>
+        <label>Масштабирование:</label>
+        <input type="button" onclick="scale(1.6)" value="+">
+        <input type="button" onclick="scale(0.4)" value="-">
+    </form>
+    <script src="script/script.js"></script>
+</body>
+
+</html>
