@@ -1,26 +1,12 @@
-//инициализация
 function initKox(id) {
   this.repetKox = function() {
-      var field = new kox();
-      field.setParams(canvas.width, canvas.height, 250, 10, 200);
-      field.draw(context);
-
-      var field2 = new kox();
-      field2.setParams(canvas.width, canvas.height, 150, 10 + Math.sqrt(200 * 200 - 100 * 100), 200);
-      field2.draw(context);
-
-      var field2 = new kox(); // создаём объект 
-      field2.setParams(canvas.width, canvas.height, 350, 10 + Math.sqrt(200 * 200 - 100 * 100), 200);
-      field2.draw(context);
-    }
-
+    var field = new kox();
+    field.setParams(canvas.width, canvas.height, 150, 10, 150);
+    field.draw(context);
+  }
   var canvas = document.getElementById(id);
-
-  canvas.width = 5 * 100; // ширина
-  canvas.height = 5 * 100; // высота
-  
   var context = canvas.getContext("2d");
-  setInterval(this.repetKox, 9000);
+  setInterval(this.repetKox, 5000);
   this.repetKox();
 }
 
@@ -108,4 +94,85 @@ function kox() {
   }
 }
 
+function cloud(id) {
+  const STEP_X = 10;
+  const STEP_Y = 10;
+  const SX = 0.005;
+  const SY = 0.005;
+  const DX = -150;
+  const DY = -135;
+  const COUNT_ITER = 500;
+  const BAIL_OUT = 32;
+
+  var canvas = document.getElementById(id);
+  var context = canvas.getContext('2d');
+  context.beginPath();
+  context.stroke();
+  context.closePath();
+
+  drawClouds(context, canvas.height, canvas.width);
+
+  function draw(x, y, ctx) {
+    ctx.fillStyle = '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
+    ctx.fillRect(Math.round(x), Math.round(y), 1, 1);
+    ctx.stroke();
+  }
+
+  function drawClouds(ctx, height, width) {
+    for (var i = 0; i < width; i += STEP_X) {
+      for (var j = 0; j < height; j += STEP_Y) {
+        var c = SX * (i + DX),
+          d = SY * (j + DY),
+          x = c,
+          y = d,
+          t;
+        for (var k = 0; x * x + y * y < BAIL_OUT && k < COUNT_ITER; k++) {
+          t = x * x - y * y + c;
+          y = 2 * x * y + d;
+          x = t;
+          draw(x / SX - DX, y / SY - DY, ctx);
+        }
+      }
+    }
+  }
+}
+
+function triangle(id) {
+  function drawPixel(x, y, context) {
+    context.fillRect(x, y, 1, 1);
+  }
+
+  canvas = document.getElementById(id);
+  c = canvas.getContext("2d");
+  c.fillStyle = "#000";
+
+  var tr = new Array(canvas.height);
+  for (i = 0; i < canvas.height; i++) {
+    tr[i] = new Array(canvas.width);
+    for (k = 0; k < canvas.width; k++) {
+      if (k == 0)
+        tr[i][k] = 1;
+      else
+        tr[i][k] = 0;
+    }
+  }
+
+  for (i = 1; i < canvas.height; i++) {
+    for (k = 1; k < canvas.width; k++) {
+      tr[i][k] = (tr[i - 1][k - 1] + tr[i - 1][k]) % 2;
+    }
+  }
+
+  for (i = 0; i < canvas.height; i++) {
+    for (k = 0; k < canvas.width; k++) {
+      if (tr[i][k] != 0)
+        drawPixel(k, i, c);
+    }
+  }
+}
+
+
 initKox('fill1');
+cloud('fill2');
+triangle('fill3');
+// fractalInit('fill4');
