@@ -1,3 +1,5 @@
+var scaleK = 1;
+
 function initKox(id) {
   this.repetKox = function() {
     var field = new kox();
@@ -94,7 +96,7 @@ function kox() {
   }
 }
 
-function cloud(id) {
+function cloud(id, height, width) {
   const STEP_X = 10;
   const STEP_Y = 10;
   const SX = 0.005;
@@ -106,11 +108,12 @@ function cloud(id) {
 
   var canvas = document.getElementById(id);
   var context = canvas.getContext('2d');
+  context.clearRect(0, 0, canvas.width, canvas.height);
   context.beginPath();
   context.stroke();
   context.closePath();
 
-  drawClouds(context, canvas.height, canvas.width);
+  drawClouds(context, height, width);
 
   function draw(x, y, ctx) {
     ctx.fillStyle = '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
@@ -220,9 +223,16 @@ function kohCross(id) {
   var ctx = document.getElementById(id).getContext('2d');
 }
 
+function scale(k, id) {
+  scaleK += k;
+  var canvas = document.getElementById(id);
+  canvas.cleat
+  cloud('fill2', canvas.width * scaleK, canvas.height * scaleK);
+}
+
 
 initKox('fill1');
-cloud('fill2');
+cloud('fill2', 400, 300);
 triangle('fill3');
 carter('fill4');
 kohCross('fill5');
