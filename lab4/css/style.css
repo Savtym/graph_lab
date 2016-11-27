@@ -1,0 +1,17 @@
+/* Reset Styles */
+
+@import url(reset.css);
+
+/* Custom Styles */
+
+body {
+	text-align: center;
+}
+
+canvas {
+	margin: 20px auto;
+	display: block;
+    border-width: 1px;
+    border-style: solid;
+    background: #FAFAFA;
+}
